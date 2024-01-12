@@ -1,9 +1,6 @@
 package com.mancala.mapper;
 
 import com.mancala.MancalaTestsDataProvider;
-import com.mancala.model.dto.GameDto;
-import com.mancala.model.entity.Game;
-import com.mancala.model.enums.GameStatus;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;

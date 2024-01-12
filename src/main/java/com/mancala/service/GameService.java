@@ -6,9 +6,12 @@ package com.mancala.service;
  */
 
 import com.mancala.model.dto.GameDto;
+import com.mancala.model.dto.PlayRequestModel;
 import org.springframework.stereotype.Service;
 
 @Service
 public interface GameService {
     GameDto initializeNewGame();
+
+    GameDto play(PlayRequestModel requestModel);
 }

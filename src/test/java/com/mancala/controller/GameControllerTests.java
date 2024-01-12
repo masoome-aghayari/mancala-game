@@ -26,18 +26,17 @@ import static org.mockito.Mockito.when;
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class GameControllerTests extends MancalaTestsDataProvider {
 
-    @LocalServerPort
-    private int port;
-
-    @Autowired
-    private TestRestTemplate restTemplate;
-
     @MockBean
     GameService gameService;
 
     @MockBean
     GameMapper mapper;
 
+    @LocalServerPort
+    private int port;
+
+    @Autowired
+    private TestRestTemplate restTemplate;
 
     @Test
     void startNewGameTest() {
@@ -49,4 +48,17 @@ public class GameControllerTests extends MancalaTestsDataProvider {
                 GameDto.class);
         assertEquals(expectedResult, actualResult);
     }
+
+    @Test
+    void playTest() {
+        var expectedResult = getGameDto();
+        var gameId = UUID.randomUUID();
+        expectedResult.setId(gameId);
+        when(gameService.play(getPlayRequestModel(gameId))).thenReturn(expectedResult);
+        when(mapper.entityToDto(any(Game.class))).thenReturn(expectedResult);
+        var actualResult = this.restTemplate.postForEntity("http://localhost:" + port + "/api/mancala/play",
+                getPlayRequestModel(gameId), GameDto.class);
+        assertEquals(expectedResult, actualResult.getBody());
+    }
+
 }
