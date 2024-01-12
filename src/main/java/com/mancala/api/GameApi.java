@@ -5,7 +5,7 @@ package com.mancala.api;
  * @since 1/12/24
  */
 
-import com.mancala.model.dto.MancalaGameDto;
+import com.mancala.model.dto.GameDto;
 import org.springframework.http.ResponseEntity;
 
 public interface GameApi {
@@ -13,5 +13,5 @@ public interface GameApi {
     String START = "/start";
     String PLAY = "/play";
 
-    ResponseEntity<MancalaGameDto> startNewGame();
+    ResponseEntity<GameDto> startNewGame();
 }

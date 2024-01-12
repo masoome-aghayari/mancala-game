@@ -6,9 +6,11 @@ package com.mancala.controller;
  */
 
 import com.mancala.api.GameApi;
-import com.mancala.model.dto.MancalaGameDto;
+import com.mancala.model.dto.GameDto;
+import com.mancala.service.GameService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -16,8 +18,11 @@ import org.springframework.web.bind.annotation.RestController;
 @AllArgsConstructor
 @RequestMapping(GameApi.BASE_PATH)
 public class GameController implements GameApi {
+    private  final GameService gameService;
+
     @Override
-    public ResponseEntity<MancalaGameDto> startNewGame() {
-        return null;
+    @GetMapping(START)
+    public ResponseEntity<GameDto> startNewGame() {
+        return ResponseEntity.ok(gameService.initializeNewGame());
     }
 }
