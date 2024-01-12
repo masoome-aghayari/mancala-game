@@ -16,7 +16,7 @@ import java.util.UUID;
 @Builder
 public class GameDto {
     private UUID id;
-    private int[] board = new int[14];
+    private int[] board;
     private Player currentPlayer;
     private GameStatus status;
     private String winner;
