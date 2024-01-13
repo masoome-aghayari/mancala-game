@@ -19,7 +19,8 @@ import java.util.UUID;
 @Cacheable(value = false)
 public class Game {
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(columnDefinition = "uuid")
     private UUID id;
 
     @Basic

@@ -3,20 +3,24 @@ server:
   servlet:
     context-path: /api
 spring:
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
   application:
     name: mancala-game
   datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    username: root
-    password: root1234
-    url: jdbc:mysql://localhost/mancala
+    url: jdbc:h2:mem:mancala
+    username: admin
+    password: admin
+    driverClassName: org.h2.Driver
   jpa:
     show-sql: true
     hibernate:
-      ddl-auto: update
+      ddl-auto: create
     properties:
       hibernate:
-        dialect: org.hibernate.dialect.MySQLDialect
+        dialect: org.hibernate.dialect.H2Dialect
   profiles:
     active: dev
     default: dev
