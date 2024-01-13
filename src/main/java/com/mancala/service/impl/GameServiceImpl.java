@@ -10,6 +10,7 @@ import com.mancala.model.dto.GameDto;
 import com.mancala.model.dto.PlayRequestModel;
 import com.mancala.model.entity.Game;
 import com.mancala.model.enums.GameStatus;
+import com.mancala.model.exceptions.GameIsOverException;
 import com.mancala.repository.GameRepository;
 import com.mancala.service.GamePlayer;
 import com.mancala.service.GameService;
@@ -35,6 +36,7 @@ public class GameServiceImpl implements GameService {
     @Override
     public GameDto play(PlayRequestModel requestModel) {
         var game = getGame(requestModel.getGameId());
+        checkGameStatus(game.getStatus());
         var gameDto = mapper.entityToDto(game);
         gamePlayer.setGame(gameDto);
         gamePlayer.play(requestModel.getPocketIndex());
@@ -43,6 +45,11 @@ public class GameServiceImpl implements GameService {
         game = mapper.dtoToEntity(gameDto);
         repository.save(game);
         return gameDto;
+    }
+
+    private void checkGameStatus(GameStatus status) {
+        if (status == GameStatus.OVER)
+            throw new GameIsOverException("this game is over!");
     }
 
     private void checkGameOver() {
