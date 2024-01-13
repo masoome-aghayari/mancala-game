@@ -7,6 +7,7 @@ package com.mancala.controller;
 
 import com.mancala.model.dto.ErrorResponse;
 import com.mancala.model.exceptions.EmptyPocketException;
+import com.mancala.model.exceptions.GameIsOverException;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.TypeMismatchException;
@@ -36,7 +37,8 @@ public class GameControllerAdvice {
     }
 
     @ExceptionHandler({MethodValidationException.class, TypeMismatchException.class, EmptyPocketException.class,
-            MissingPathVariableException.class, MethodArgumentNotValidException.class})
+            MissingPathVariableException.class, MethodArgumentNotValidException.class, GameIsOverException.class,
+            IllegalArgumentException.class})
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     protected ResponseEntity<ErrorResponse> handleBadRequestException(Exception ex, WebRequest request) {
         logError(ex.getMessage(), getRequestURI(request));
