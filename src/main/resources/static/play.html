@@ -92,24 +92,11 @@
             },
             body: JSON.stringify(playRequestModel),
         })
-            .then(response => {
-                if (!response.ok) {
-                    response.text().then(data => {
-                        try {
-                            const parsedData = JSON.parse(data);
-                            const message = parsedData.message;
-                            alert(message);
-                        } catch (error) {
-                            alert(data);
-                        }
-                    });
-                }
-                response.json()
-            })
+            .then(response => response.json())
             .then(data => {
                 updateBoard(data.board);
             })
-            .catch(error => console.log("Error:", error));
+            .catch(error => console.log('Error playing the game:' + error));
     }
 
     function updateBoard(board) {
