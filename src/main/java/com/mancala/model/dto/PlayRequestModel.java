@@ -14,7 +14,7 @@ import java.util.UUID;
 @Data
 public class PlayRequestModel {
 
-    @PocketIndex(notAllowedValue = 6, message = "pocketIndex can be between 0 to 12 but not 6")
+    @PocketIndex(notAllowedValue = 6)
     private int pocketIndex;
 
     @NotNull
