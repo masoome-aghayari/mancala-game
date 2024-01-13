@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Play Page</title>
+    <style>
+        #gameTableContainer {
+            margin: 50px 450px;
+            text-align: center;
+        }
+
+        #gameTableContainer td {
+            width: 30px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+<h1 style="margin: 20px 590px">Game Board</h1>
+
+<div style="margin: 0 0 0 520px">
+    <p id="playerA_store"></p>
+    <p id="playerB_store"></p>
+</div>
+
+<div id="gameTableContainer">
+    <table border="1" id="gameTable" style="width: 480px; height: 240px; text-align: center;">
+        <tr>
+            <th colspan="100">PLAYER B</th>
+        </tr>
+        <tr>
+            <td>12</td>
+            <td>11</td>
+            <td>10</td>
+            <td>9</td>
+            <td>8</td>
+            <td>7</td>
+        </tr>
+        <tr>
+            <td>6</td>
+            <td>6</td>
+            <td>6</td>
+            <td>6</td>
+            <td>6</td>
+            <td>6</td>
+        </tr>
+        <tr>
+            <td>6</td>
+            <td>6</td>
+            <td>6</td>
+            <td>6</td>
+            <td>6</td>
+            <td>6</td>
+        </tr>
+        <tr>
+            <td>0</td>
+            <td>1</td>
+            <td>2</td>
+            <td>3</td>
+            <td>4</td>
+            <td>5</td>
+        </tr>
+        <tr>
+            <th colspan="100">PLAYER A</th>
+        </tr>
+    </table>
+</div>
+<br>
+
+<div style="margin: 0 0 0 520px">
+    <label for="playerChoice">Enter your choice:</label>
+    <input type="text" id="playerChoice" placeholder="Enter a number">
+    <button onclick="playGame()">Play</button>
+</div>
+<script>
+    const id = new URLSearchParams(window.location.search).get('id');
+
+    function playGame() {
+        const playerChoice = document.getElementById('playerChoice').value;
+
+        const playRequestModel = {
+            gameId: id,
+            pocketIndex: playerChoice,
+        };
+
+        fetch('/api/mancala/play', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(playRequestModel),
+        })
+            .then(response => {
+                if (!response.ok) {
+                    response.text().then(data => {
+                        try {
+                            const parsedData = JSON.parse(data);
+                            const message = parsedData.message;
+                            alert(message);
+                        } catch (error) {
+                            alert(data);
+                        }
+                    });
+                }
+                response.json()
+            })
+            .then(data => {
+                updateBoard(data.board);
+            })
+            .catch(error => console.log("Error:", error));
+    }
+
+    function updateBoard(board) {
+        const table = document.getElementById('gameTable');
+        console.log(board)
+        const row2 = table.rows[2];
+        for (j = 0; j < 6; j++) {
+            row2.cells[j].innerText = board[board.length - j - 2];
+        }
+        const row3 = table.rows[3];
+        for (j = 0; j < 6; j++) {
+            row3.cells[j].innerText = board[j];
+        }
+        document.getElementById('playerA_store').innerHTML = `playerA_store: ${board[6]}`;
+        document.getElementById('playerB_store').innerHTML = `playerB_store: ${board[13]}`;
+    }
+</script>
+
+</body>
+</html>

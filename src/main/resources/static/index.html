@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Start Page</title>
+</head>
+<body>
+
+<h1>Welcome to My Game ;)</h1>
+
+<button onclick="startNewGame()">Start New Game</button>
+
+<script>
+    function startNewGame() {
+        fetch('/api/mancala/start', {
+            method: 'GET',
+        })
+            .then(response => response.json())
+            .then(data => {
+                window.location.href = `play.html?id=${data.id}`;
+            })
+            .catch(error => console.error('Error starting a new game:', error));
+    }
+</script>
+</body>
+</html>
