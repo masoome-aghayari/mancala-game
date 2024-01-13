@@ -10,15 +10,15 @@ import com.mancala.model.dto.GameDto;
 import com.mancala.model.dto.PlayRequestModel;
 import com.mancala.service.GameService;
 import jakarta.validation.Valid;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@AllArgsConstructor
+@RequiredArgsConstructor
 @RequestMapping(GameApi.BASE_PATH)
 public class GameController implements GameApi {
-    private  final GameService gameService;
+    private final GameService gameService;
 
     @Override
     @GetMapping(START)
@@ -29,6 +29,6 @@ public class GameController implements GameApi {
     @Override
     @PostMapping(PLAY)
     public ResponseEntity<GameDto> play(@RequestBody @Valid PlayRequestModel requestModel) {
-       return ResponseEntity.ok(gameService.play(requestModel));
+        return ResponseEntity.ok(gameService.play(requestModel));
     }
 }
