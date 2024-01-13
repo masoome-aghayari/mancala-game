@@ -13,3 +13,12 @@ Explore the API documentation using Swagger UI by navigating to:
 Refer to the Postman documentation for detailed API endpoints and examples:
 
 [Postman Documentation](https://documenter.getpostman.com/view/11927103/2s9YsNdqVh)
+
+## h2 Database
+
+You can connect to the H2 console by visiting [H2 Console](http://localhost:8080/api/h2-console) and using the above URL:
+JDBC URL: jdbc:h2:mem:mancala
+User Name: admin
+Password: admin
+
+
