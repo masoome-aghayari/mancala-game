@@ -24,4 +24,18 @@ User Name: admin
 
 Password: admin
 
+## Pictures from game
+
+Start game :
+
+![start](https://github.com/masoome-aghayari/mancala-game/src/main/resources/images/start.png)
+
+Default state of the game board:
+
+![start](https://github.com/masoome-aghayari/mancala-game/src/main/resources/images/start.png)
+
+One step played:
+
+![start](https://github.com/masoome-aghayari/mancala-game/src/main/resources/images/start.png)
+
 
