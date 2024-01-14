@@ -34,9 +34,11 @@ public class GamePlayer {
         board[pocketIndex] = 0;
         int playerFirstIndex = getPlayerFirstIndex();
         int playerLastIndex = playerFirstIndex + POCKETS_COUNT;
-        addStonesToRightPockets(pocketIndex, playerLastIndex);
-        addStonesToRivalPockets(playerLastIndex);
-        addStonesToLeftPockets(playerFirstIndex);
+        while (stones != 0) {
+            addStonesToRightPockets(pocketIndex, playerLastIndex);
+            addStonesToRivalPockets(playerLastIndex);
+            addStonesToLeftPockets(playerFirstIndex, pocketIndex);
+        }
     }
 
     private void checkPocketOwner(int pocketIndex) {
@@ -83,9 +85,10 @@ public class GamePlayer {
         return game.getCurrentPlayer() == Player.PLAYER_A ? Player.PLAYER_B : Player.PLAYER_A;
     }
 
-    private void addStonesToLeftPockets(int playerFirstIndex) {
+    private void addStonesToLeftPockets(int playerFirstIndex, int pocketIndex) {
         if (stones > 0) {
-            addStonesToPockets(playerFirstIndex, Math.abs(stones + playerFirstIndex - 1));
+            var toIndex = Math.min(stones, pocketIndex);
+            addStonesToPockets(playerFirstIndex, toIndex);
         }
     }
 
