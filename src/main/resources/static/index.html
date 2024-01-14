@@ -18,7 +18,7 @@
         })
             .then(response => response.json())
             .then(data => {
-                window.location.href = `play.html?id=${data.id}`;
+                window.location.href = `play.html?id=${data.id}&player=${data.currentPlayer}`;
             })
             .catch(error => console.error('Error starting a new game:', error));
     }
