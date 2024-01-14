@@ -34,7 +34,7 @@ public class GamePlayer {
         board[pocketIndex] = 0;
         int playerFirstIndex = getPlayerFirstIndex();
         int playerLastIndex = playerFirstIndex + POCKETS_COUNT;
-        while (stones != 0) {
+        while (stones > 0) {
             addStonesToRightPockets(pocketIndex, playerLastIndex);
             addStonesToRivalPockets(playerLastIndex);
             addStonesToLeftPockets(playerFirstIndex, pocketIndex);
@@ -89,14 +89,19 @@ public class GamePlayer {
         if (stones > 0) {
             int toIndex;
             var leftPocketsCount = pocketIndex - playerFirstIndex;
-            if (stones == 1 || leftPocketsCount == 0) toIndex = playerFirstIndex;
-            else {
-                toIndex = stones > leftPocketsCount ? pocketIndex : stones == leftPocketsCount ? pocketIndex - 1 :
-                        playerFirstIndex + stones - 1;
-            }
+            toIndex = getToIndexForAddingStonesToLeftPockets(playerFirstIndex, pocketIndex, leftPocketsCount);
             addStonesToPockets(playerFirstIndex, toIndex);
         }
+    }
 
+    private int getToIndexForAddingStonesToLeftPockets(int playerFirstIndex, int pocketIndex, int leftPocketsCount) {
+        int toIndex;
+        if (stones == 1 || leftPocketsCount == 0) toIndex = playerFirstIndex;
+        else {
+            toIndex = stones > leftPocketsCount ? pocketIndex : stones == leftPocketsCount ? pocketIndex - 1 :
+                    playerFirstIndex + stones - 1;
+        }
+        return toIndex;
     }
 
     private void addStonesToPockets(int fromIndex, int toIndex) {
@@ -124,10 +129,10 @@ public class GamePlayer {
     }
 
     private void addCrossIndexStonesToPlayerStore(int i) {
-        if (i < getPlayerLastIndex()) {
+        var playerLastIndex = getPlayerLastIndex();
+        if (i < playerLastIndex) {
             var board = game.getBoard();
             var crossIndex = board.length - i - 2;
-            int playerLastIndex = getPlayerLastIndex();
             board[playerLastIndex] += board[crossIndex];
             board[crossIndex] = 0;
             stones = 0;
