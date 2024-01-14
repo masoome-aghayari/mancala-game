@@ -87,9 +87,16 @@ public class GamePlayer {
 
     private void addStonesToLeftPockets(int playerFirstIndex, int pocketIndex) {
         if (stones > 0) {
-            var toIndex = Math.min(stones, pocketIndex);
+            int toIndex;
+            var leftPocketsCount = pocketIndex - playerFirstIndex;
+            if (stones == 1 || leftPocketsCount == 0) toIndex = playerFirstIndex;
+            else {
+                toIndex = stones > leftPocketsCount ? pocketIndex : stones == leftPocketsCount ? pocketIndex - 1 :
+                        playerFirstIndex + stones - 1;
+            }
             addStonesToPockets(playerFirstIndex, toIndex);
         }
+
     }
 
     private void addStonesToPockets(int fromIndex, int toIndex) {
