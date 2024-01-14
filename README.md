@@ -38,4 +38,8 @@ One step played:
 
 ![start](https://github.com/masoome-aghayari/mancala-game/blob/main/src/main/resources/images/play.png)
 
+GameOver:
+
+![start](https://github.com/masoome-aghayari/mancala-game/blob/main/src/main/resources/images/gameOver.png)
+
 
