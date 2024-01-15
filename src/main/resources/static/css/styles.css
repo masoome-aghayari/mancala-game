@@ -1,0 +1,106 @@
+#gameTableContainer {
+    margin: 50px 450px;
+    text-align: center;
+}
+
+#gameTableContainer td {
+    width: 30px;
+    text-align: center;
+}
+
+#stores {
+    margin-left: 615px
+}
+
+#gameBoard {
+    width: 480px;
+    height: 240px;
+    text-align: center;
+    border-color: black;
+    border-width: thick
+}
+
+#mancala-game-board {
+    margin-top: 20px;
+    margin-left: 540px;
+}
+
+#playerA_store {
+    color: dodgerblue;
+    font-weight: bold;
+    font-size: larger
+}
+
+#playerB_store {
+    color: coral;
+    font-weight: bold;
+    font-size: larger
+}
+
+#playerB_pockets {
+    color: coral;
+    font-style: oblique;
+    font-weight: bold;
+    font-size: larger
+}
+
+#playerA_indexes {
+    font-size: x-small;
+    background-color: dodgerblue;
+    font-weight: bold;
+}
+
+#playerB_indexes {
+    font-size: x-small;
+    background-color: coral;
+    font-weight: bold;
+}
+
+#playerA_pockets {
+    color: dodgerblue;
+    font-style: oblique;
+    font-weight: bold;
+    font-size: larger
+}
+
+#playerA {
+    color: dodgerblue;
+}
+
+#starting-page h1{
+    color: darkgoldenrod;
+}
+
+#starting-page button {
+    font-size: larger;
+}
+
+#playerB {
+    color: coral;
+}
+
+#game-over-message {
+    margin-left: 95px;
+    margin-top: 30px
+}
+
+#game-over-message h3 {
+    color: green
+}
+
+#index-input {
+    margin-left: 380px;
+    font-size: larger;
+}
+
+#index-input label {
+    font-size: larger;
+}
+
+#index-input input {
+    font-size: larger;
+}
+
+#index-input button {
+    font-size: larger;
+}

@@ -4,32 +4,22 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Play Page</title>
-    <style>
-        #gameTableContainer {
-            margin: 50px 450px;
-            text-align: center;
-        }
-
-        #gameTableContainer td {
-            width: 30px;
-            text-align: center;
-        }
-    </style>
+    <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
 
-<div style="margin-top: 20px; margin-left:590px"><h1>Game Board</h1></div>
-<div style="margin-left:595px">
+<div id="mancala-game-board"><h1>Mancala Game Board</h1></div>
+<div id="stores">
     <p id="playerA_store">playerA_store: 0</p>
     <p id="playerB_store">playerB_store: 0</p>
 </div>
 
 <div id="gameTableContainer">
-    <table border="1" id="gameTable" style="width: 480px; height: 240px; text-align: center;">
+    <table border="1" id="gameBoard">
         <tr>
-            <th colspan="100">PLAYER B</th>
+            <th id="playerB" colspan="100">PLAYER B</th>
         </tr>
-        <tr>
+        <tr id="playerB_indexes">
             <td>12</td>
             <td>11</td>
             <td>10</td>
@@ -37,7 +27,7 @@
             <td>8</td>
             <td>7</td>
         </tr>
-        <tr>
+        <tr id="playerB_pockets">
             <td>6</td>
             <td>6</td>
             <td>6</td>
@@ -45,7 +35,7 @@
             <td>6</td>
             <td>6</td>
         </tr>
-        <tr>
+        <tr id="playerA_pockets">
             <td>6</td>
             <td>6</td>
             <td>6</td>
@@ -53,7 +43,7 @@
             <td>6</td>
             <td>6</td>
         </tr>
-        <tr>
+        <tr id="playerA_indexes">
             <td>0</td>
             <td>1</td>
             <td>2</td>
@@ -62,19 +52,19 @@
             <td>5</td>
         </tr>
         <tr>
-            <th colspan="100">PLAYER A</th>
+            <th id="playerA" colspan="100">PLAYER A</th>
         </tr>
     </table>
 </div>
 <br>
 
-<div style="margin: 0 0 0 480px">
+<div id="index-input">
     <label for="playerChoice" id="playerChoiceLabel"></label>
     <input type="number" id="playerChoice" placeholder="Enter a number">
-    <button onclick="playGame()">Play</button>
+    <button id="play-button" onclick="playGame()">Play</button>
 </div>
-<div style="margin-left: 95px; margin-top: 30px">
-    <h3 id="gameOver_message" style="color: green"></h3>
+<div id="game-over-message">
+    <h3 id="gameOver_message"></h3>
 </div>
 <script>
     function getPlayer() {
@@ -127,7 +117,7 @@
     }
 
     function updateBoard(board) {
-        const table = document.getElementById('gameTable');
+        const table = document.getElementById('gameBoard');
         console.log(board)
         const row2 = table.rows[2];
         for (j = 0; j < 6; j++) {
