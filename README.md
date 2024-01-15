@@ -32,14 +32,10 @@ Start game :
 
 Default state of the game board:
 
-![start](https://github.com/masoome-aghayari/mancala-game/blob/main/src/main/resources/images/beginning-state-of-board.png)
-
-One step played:
-
-![start](https://github.com/masoome-aghayari/mancala-game/blob/main/src/main/resources/images/play.png)
+![start](https://github.com/masoome-aghayari/mancala-game/blob/main/src/main/resources/images/dafault-board.png)
 
 GameOver:
 
-![start](https://github.com/masoome-aghayari/mancala-game/blob/main/src/main/resources/images/gameOver.png)
+![start](https://github.com/masoome-aghayari/mancala-game/blob/main/src/main/resources/images/game-over.png)
 
 
