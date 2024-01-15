@@ -11,6 +11,7 @@ import com.mancala.model.exceptions.GameIsOverException;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.TypeMismatchException;
+import org.springframework.context.support.DefaultMessageSourceResolvable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.method.MethodValidationException;
@@ -37,12 +38,22 @@ public class GameControllerAdvice {
     }
 
     @ExceptionHandler({MethodValidationException.class, TypeMismatchException.class, EmptyPocketException.class,
-            MissingPathVariableException.class, MethodArgumentNotValidException.class, GameIsOverException.class,
+            MissingPathVariableException.class, GameIsOverException.class,
             IllegalArgumentException.class})
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     protected ResponseEntity<ErrorResponse> handleBadRequestException(Exception ex, WebRequest request) {
         logError(ex.getMessage(), getRequestURI(request));
         return getErrorResponse(ex.getMessage(), HttpStatus.BAD_REQUEST, getRequestURI(request));
+    }
+
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    protected ResponseEntity<ErrorResponse> handleMethodArgumentNotValidException(MethodArgumentNotValidException ex, WebRequest request) {
+        var errors = ex.getBindingResult().getFieldErrors().stream()
+                .map(DefaultMessageSourceResolvable::getDefaultMessage)
+                .toList();
+        logError(ex.getMessage(), getRequestURI(request));
+        return getErrorResponse(errors.toString(), HttpStatus.BAD_REQUEST, getRequestURI(request));
     }
 
     @ExceptionHandler(EntityNotFoundException.class)
