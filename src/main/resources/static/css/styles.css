@@ -67,8 +67,13 @@
     color: dodgerblue;
 }
 
-#starting-page h1{
-    color: darkgoldenrod;
+#starting-page {
+    text-align: center;
+    margin-top: 250px;
+}
+
+#starting-page h1 {
+    color: black;
 }
 
 #starting-page button {
