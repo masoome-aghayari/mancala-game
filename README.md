@@ -28,14 +28,14 @@ Password: admin
 
 Start game :
 
-![start](https://github.com/masoome-aghayari/mancala-game/blob/main/src/main/resources/images/start.png)
+![start](https://github.com/masoome-aghayari/mancala-game/blob/main/src/main/resources/static/images/start.png)
 
 Default state of the game board:
 
-![start](https://github.com/masoome-aghayari/mancala-game/blob/main/src/main/resources/images/default-board.png)
+![start](https://github.com/masoome-aghayari/mancala-game/blob/main/src/main/resources/static/images/default-board.png)
 
 GameOver:
 
-![start](https://github.com/masoome-aghayari/mancala-game/blob/main/src/main/resources/images/game-over.png)
+![start](https://github.com/masoome-aghayari/mancala-game/blob/main/src/main/resources/static/images/game-over.png)
 
 
