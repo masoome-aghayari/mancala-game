@@ -33,17 +33,13 @@ import java.util.Date;
 @Slf4j
 public class GameControllerAdvice {
 
-    private static String getRequestURI(WebRequest request) {
-        return ((ServletWebRequest) request).getRequest().getRequestURI();
-    }
-
     @ExceptionHandler({MethodValidationException.class, TypeMismatchException.class, EmptyPocketException.class,
             MissingPathVariableException.class, GameIsOverException.class,
             IllegalArgumentException.class})
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     protected ResponseEntity<ErrorResponse> handleBadRequestException(Exception ex, WebRequest request) {
-        logError(ex.getMessage(), getRequestURI(request));
-        return getErrorResponse(ex.getMessage(), HttpStatus.BAD_REQUEST, getRequestURI(request));
+        logError(ex.getMessage(), getRequestUri(request));
+        return getErrorResponse(ex.getMessage(), HttpStatus.BAD_REQUEST, getRequestUri(request));
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
@@ -52,50 +48,54 @@ public class GameControllerAdvice {
         var errors = ex.getBindingResult().getFieldErrors().stream()
                 .map(DefaultMessageSourceResolvable::getDefaultMessage)
                 .toList();
-        logError(ex.getMessage(), getRequestURI(request));
-        return getErrorResponse(errors.toString(), HttpStatus.BAD_REQUEST, getRequestURI(request));
+        logError(ex.getMessage(), getRequestUri(request));
+        return getErrorResponse(errors.toString(), HttpStatus.BAD_REQUEST, getRequestUri(request));
     }
 
     @ExceptionHandler(EntityNotFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
     public ResponseEntity<ErrorResponse> handleEntityNotFoundException(Exception ex, WebRequest request) {
-        logError(ex.getMessage(), getRequestURI(request));
-        return getErrorResponse(ex.getMessage(), HttpStatus.NOT_FOUND, getRequestURI(request));
+        logError(ex.getMessage(), getRequestUri(request));
+        return getErrorResponse(ex.getMessage(), HttpStatus.NOT_FOUND, getRequestUri(request));
     }
 
     @ExceptionHandler({MethodNotAllowedException.class, HttpRequestMethodNotSupportedException.class})
     @ResponseStatus(HttpStatus.METHOD_NOT_ALLOWED)
     public ResponseEntity<ErrorResponse> handleMethodNotAllowedException(Exception ex, WebRequest request) {
-        logError(ex.getMessage(), getRequestURI(request));
-        return getErrorResponse(ex.getMessage(), HttpStatus.METHOD_NOT_ALLOWED, getRequestURI(request));
+        logError(ex.getMessage(), getRequestUri(request));
+        return getErrorResponse(ex.getMessage(), HttpStatus.METHOD_NOT_ALLOWED, getRequestUri(request));
     }
 
     @ExceptionHandler(HttpMediaTypeNotAcceptableException.class)
     @ResponseStatus(HttpStatus.NOT_ACCEPTABLE)
     protected ResponseEntity<ErrorResponse> handleHttpMediaTypeNotAcceptable(HttpMediaTypeNotAcceptableException ex,
                                                                              WebRequest request) {
-        logError(ex.getMessage(), getRequestURI(request));
-        return getErrorResponse(ex.getMessage(), HttpStatus.NOT_ACCEPTABLE, getRequestURI(request));
+        logError(ex.getMessage(), getRequestUri(request));
+        return getErrorResponse(ex.getMessage(), HttpStatus.NOT_ACCEPTABLE, getRequestUri(request));
     }
 
     @ExceptionHandler(HttpMediaTypeNotSupportedException.class)
     @ResponseStatus(HttpStatus.UNSUPPORTED_MEDIA_TYPE)
     public ResponseEntity<ErrorResponse> handleHttpMediaTypeNotSupported(HttpMediaTypeNotSupportedException ex,
                                                                          WebRequest request) {
-        logError(ex.getMessage(), getRequestURI(request));
-        return getErrorResponse(ex.getMessage(), HttpStatus.UNSUPPORTED_MEDIA_TYPE, getRequestURI(request));
+        logError(ex.getMessage(), getRequestUri(request));
+        return getErrorResponse(ex.getMessage(), HttpStatus.UNSUPPORTED_MEDIA_TYPE, getRequestUri(request));
     }
 
     @ExceptionHandler({RuntimeException.class, Exception.class})
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public ResponseEntity<ErrorResponse> handleGeneralExceptions(Exception ex, WebRequest request) {
-        logError(ex.getMessage(), getRequestURI(request));
-        return getErrorResponse(ex.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR, getRequestURI(request));
+        logError(ex.getMessage(), getRequestUri(request));
+        return getErrorResponse(ex.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR, getRequestUri(request));
     }
 
     private ResponseEntity<ErrorResponse> getErrorResponse(String message, HttpStatus status, String path) {
         var errorResponse = new ErrorResponse(message, status.value(), new Date(), path);
         return new ResponseEntity<>(errorResponse, status);
+    }
+
+    private String getRequestUri(WebRequest request) {
+        return ((ServletWebRequest) request).getRequest().getRequestURI();
     }
 
     private void logError(String message, String path) {
