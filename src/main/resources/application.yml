@@ -32,3 +32,6 @@ springdoc:
     path: /api-docs
 application:
   version: 1.0.0
+logging:
+  level:
+    root: info
