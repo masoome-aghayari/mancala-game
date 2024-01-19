@@ -1,5 +1,5 @@
 FROM openjdk:17
-WORKDIR /tmp
-COPY --from=build /Users/masoomeaghayari/IdeaProjects/mancala-game/target/*.jar app.jar
-ENTRYPOINT ["java","-jar","/app.jar"]
+WORKDIR /app
+COPY target/*.jar app.jar
+ENTRYPOINT ["java","-jar","app.jar"]
 CMD java target/classes/com/mancala/MancalaGameApplication.class
