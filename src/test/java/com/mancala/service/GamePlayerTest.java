@@ -4,17 +4,12 @@ import com.mancala.MancalaTestsDataProvider;
 import com.mancala.model.enums.Player;
 import com.mancala.model.exceptions.EmptyPocketException;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.Arguments;
-import org.junit.jupiter.params.provider.MethodSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.UUID;
-import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.junit.jupiter.params.provider.Arguments.arguments;
 
 
 /*
@@ -28,13 +23,6 @@ class GamePlayerTest extends MancalaTestsDataProvider {
 
     @Autowired
     GamePlayer gamePlayer;
-
-    public static Stream<Arguments> provideInputForIsGameOverTest() {
-        return Stream.of(
-                arguments(new int[]{0, 0, 0, 2, 1, 0, 37, 0, 0, 0, 0, 0, 0, 20}),
-                arguments(new int[]{0, 0, 0, 2, 1, 0, 37, 0, 0, 0, 0, 0, 1, 19})
-        );
-    }
 
     @Test
     void givenPocketIndex_when_PlayerDoesNotOwnIt_thenThrows_IllegalArgumentException() {
@@ -84,9 +72,9 @@ class GamePlayerTest extends MancalaTestsDataProvider {
         assertEquals(expectedResult, actualResult);
     }
 
-    @ParameterizedTest
-    @MethodSource("provideInputForIsGameOverTest")
-    void isGameOver(int[] board) {
+    @Test
+    void given_board_when_isGameOver_returns_true() {
+        var board = new int[]{0, 0, 0, 2, 1, 0, 37, 0, 0, 0, 0, 0, 0, 20};
         var gameDto = getGameDto();
         gameDto.setBoard(board);
         gameDto.setCurrentPlayer(Player.PLAYER_A);
@@ -94,5 +82,17 @@ class GamePlayerTest extends MancalaTestsDataProvider {
         gamePlayer.setGame(gameDto);
         var gameOver = gamePlayer.isGameOver();
         assertTrue(gameOver);
+    }
+
+    @Test
+    void given_board_when_isNotGameOver_returns_false() {
+        var board = new int[]{0, 0, 0, 2, 1, 0, 37, 0, 0, 0, 0, 0, 1, 19};
+        var gameDto = getGameDto();
+        gameDto.setBoard(board);
+        gameDto.setCurrentPlayer(Player.PLAYER_A);
+        gameDto.setId(gameId);
+        gamePlayer.setGame(gameDto);
+        var gameOver = gamePlayer.isGameOver();
+        assertFalse(gameOver);
     }
 }
